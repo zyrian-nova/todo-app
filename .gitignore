@@ -5,3 +5,7 @@ __pycache__/
 .ruff_cache/
 .pdm-python
 .venv
+
+# Archivos de la base de datos
+todo.db-shm
+todo.db-wal
