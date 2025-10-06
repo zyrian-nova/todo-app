@@ -33,7 +33,7 @@ class AIService:
             {{"subtasks": ["subtarea 1", "subtarea 2", "subtarea 3"]}}
         No inicies las tareas con lo siguiente:
             'accion':
-            descripción':
+            'descripción':
 
         Tarea principal: {main_task}
 
