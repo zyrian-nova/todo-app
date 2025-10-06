@@ -61,8 +61,10 @@ async def generate_subtasks(key: int):
         # Crea las subtareas en la base de datos
         created_subtasks = []
         for subtask_text in subtask_texts:
+            # Asegura que sea un string y limita a 100 caracteres
+            task_str = str(subtask_text).strip()[:100]
             subtask = await Todo.create(
-                task=subtask_text[:100],
+                task=task_str,
                 done=False,
                 parent_task_id=key
             )

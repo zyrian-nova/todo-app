@@ -16,38 +16,50 @@ class AIService:
         self.ollama_host = os.getenv("OLLAMA_HOST", "http://localhost:11434")
         self.ollama_model = os.getenv("OLLAMA_MODEL", "llama3.2")
 
+        # Crea el cliente de Ollama con el host configurado
+        self.client = ollama.Client(host=self.ollama_host)
+
         logger.info(f"Usando Ollama en {self.ollama_host} con modelo {self.ollama_model}")
 
     def generate_subtasks(self, main_task: str) -> list[str]:
         """
         Genera subtareas específicas basadas en una tarea principal usando Ollama
-
-        Args:
-            main_task: Descripción de la tarea principal
-
-        Returns:
-            Lista de subtareas generadas
         """
-        prompt = f"""Divide esta tarea en 3-5 subtareas específicas y accionables.
-Responde SOLO con un JSON válido en este formato exacto, sin explicaciones adicionales:
-{{"subtasks": ["subtarea 1", "subtarea 2", "subtarea 3"]}}
+        prompt = f"""
+        Eres un sistema experto en planeación.
+        Divide esta tarea en 3-5 subtareas específicas y accionables.
+        Las tareas deben de tener máximo 100 caracteres.
+        Responde SOLO con un JSON válido en este formato exacto, sin explicaciones adicionales:
+            {{"subtasks": ["subtarea 1", "subtarea 2", "subtarea 3"]}}
+        No inicies las tareas con lo siguiente:
+            'accion':
+            descripción':
 
-Tarea principal: {main_task}
+        Tarea principal: {main_task}
 
-JSON:"""
+        JSON:"""
 
         try:
             logger.info(f"Generando subtareas para: {main_task}")
 
             # Llamada a Ollama
-            response = ollama.chat(
+            response = self.client.chat(
                 model=self.ollama_model,
                 messages=[{
                     'role': 'user',
                     'content': prompt
                 }],
                 options={
-                    'temperature': 0.7,
+                    # Control de creatividad
+                    # 0.0-2.0. Más alto = más creativo/aleatorio
+                    'temperature': 0.9,
+                    # Control de longitud de respuesta
+                    'num_predict': 300,
+                    # Control de repetición
+                    # 1.0-2.0. Penaliza palabras repetidas
+                    'repeat_penalty': 1.2,
+                    'top_k': 0.9,
+                    'top_p': 0.5,
                 }
             )
 
