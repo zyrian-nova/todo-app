@@ -5,7 +5,7 @@ description = "Default template for PDM package"
 authors = [
     {name = "Zyrian", email = "zyrian@mylocker.dev"},
 ]
-dependencies = ["fastapi>=0.118.0", "tortoise-orm>=0.25.1", "uvicorn>=0.37.0"]
+dependencies = ["fastapi>=0.118.0", "tortoise-orm>=0.25.1", "uvicorn>=0.37.0", "python-dotenv>=1.1.1", "ollama>=0.6.0"]
 requires-python = "==3.13.*"
 readme = "README.md"
 license = {text = "MIT"}

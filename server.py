@@ -2,6 +2,10 @@
 Punto de entrada de la aplicación
 """
 import uvicorn
+from dotenv import load_dotenv
+
+# Carga las variables de entorno
+load_dotenv()
 
 if __name__ == "__main__":
     # Inicia el servidor uvicorn
