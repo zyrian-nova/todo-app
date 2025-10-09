@@ -11,9 +11,17 @@ GetTodo = pydantic_model_creator(Todo, name="ToDo")
 # Schema para crear una nueva tarea (POST)
 class PostTodo(BaseModel):
     task:str = Field(...,max_length=100) # Obligatorio
-    done:bool # Obligatorio
+    done:bool = Field(default=False)# Obligatorio
+    parent_task_id: int | None = Field(None)
 
 # Schema para actualizar una tarea existente (PUT)
 class PutTodo(BaseModel):
     task: str | None = Field(None, max_length=100) # Opcional
     done: bool | None # Opcional
+
+# Schema para respuesta de subtareas generadas
+class GeneratedSubtasks(BaseModel):
+    main_task_id: int
+    main_task: str
+    subtasks: list[GetTodo]
+    count: int
