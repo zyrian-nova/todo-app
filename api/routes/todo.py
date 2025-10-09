@@ -4,7 +4,7 @@ Rutas de la API para las operaciones CRUD de las tareas
 from fastapi import APIRouter,HTTPException,status
 from api.models.todo import Todo
 from api.schemas.todo import GeneratedSubtasks, GetTodo,PostTodo,PutTodo
-from api.services.ai_service import AIService
+from api.services.todo import AIService
 
 # Prefijo 'api/' y etiqueta para la documentación
 todo_router = APIRouter(prefix="/api", tags=["Todo"])
