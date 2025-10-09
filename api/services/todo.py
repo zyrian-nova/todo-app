@@ -65,7 +65,7 @@ class AIService:
 
             # Extrae el contenido de la respuesta
             response_text = response['message']['content'].strip()
-            logger.info(f"Respuesta de Ollama recibida correctamente")
+            logger.info("Respuesta de Ollama recibida correctamente")
 
             # Limpia la respuesta si viene con markdown
             if response_text.startswith("```json"):
